@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+				   assembly="ReportUpdaterServer"
+				   namespace="ReportUpdaterServer.Classes.EventStore">
+  <class name="EventStoreItem"
+		   table="eventstore" >
+    <id name="Id">
+      <generator class="identity"/>
+    </id>
+    <property name="objectid" />
+    <property name="typ" />
+    <property name="version"  />
+    <property name="created"  />
+    <property name="serdata"  />
+    <property name="classtype"  />
+    <property name="artype"  />
+  </class>
+
+
+  <sql-query name="qNotProcessed">
+    <return alias="p" class="EventStoreItem" />
+    <![CDATA[
+    select * from eventstore where id > :lastprocessedid and typ=0 order by id
+    ]]>
+  </sql-query>
+
+
+
+
+</hibernate-mapping>

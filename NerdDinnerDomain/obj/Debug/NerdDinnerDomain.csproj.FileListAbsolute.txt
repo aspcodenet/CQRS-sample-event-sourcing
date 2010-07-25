@@ -1,0 +1,11 @@
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdDinnerDomain\bin\Debug\NerdDinnerDomain.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdDinnerDomain\bin\Debug\NerdDinnerDomain.pdb
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdDinnerDomain\obj\Debug\ResolveAssemblyReference.cache
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdDinnerDomain\obj\Debug\NerdDinnerDomain.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdDinnerDomain\obj\Debug\NerdDinnerDomain.pdb
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdDinnerDomain\bin\Debug\DomainEventsInfrastructure.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdDinnerDomain\bin\Debug\DomainEventsInfrastructure.pdb
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdDinnerDomain\bin\Debug\EventStoreInfrastructure.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdDinnerDomain\bin\Debug\EventStoreInfrastructure.pdb
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdDinnerDomain\bin\Debug\NerdDinnerDomainEvents.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdDinnerDomain\bin\Debug\NerdDinnerDomainEvents.pdb

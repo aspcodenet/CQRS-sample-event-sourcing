@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+				   assembly="ReportUpdaterServer"
+				   namespace="ReportUpdaterServer.Classes">
+  <class name="ReportUser"
+		   table="report_user" >
+    <id name="User_Id">
+      <column name="User_Id"/>
+    </id>
+
+    <property name="Forname" />
+    <property name="Surname"  />
+  </class>
+
+  <sql-query name="qUserById">
+    <return alias="p" class="ReportUser" />
+    <![CDATA[
+    select * from report_user where user_id=:id
+    ]]>
+  </sql-query>
+
+
+
+
+
+</hibernate-mapping>

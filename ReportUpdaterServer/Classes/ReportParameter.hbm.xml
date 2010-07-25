@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+				   assembly="ReportUpdaterServer"
+				   namespace="ReportUpdaterServer.Classes">
+  <class name="ReportParameter"
+		   table="report_parameters" >
+    <id name="Id">
+      <generator class="identity"/>
+    </id>
+    <property name="Paramname" />
+    <property name="intval" />
+    <property name="stringval"  />
+  </class>
+
+
+  <sql-query name="qLastProcessedEvent">
+    <return alias="p" class="ReportParameter" />
+    <![CDATA[
+    select * from report_parameters where paramname='lastprocessed'
+    ]]>
+  </sql-query>
+
+
+
+
+</hibernate-mapping>

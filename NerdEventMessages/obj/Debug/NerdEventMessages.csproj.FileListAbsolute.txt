@@ -1,0 +1,6 @@
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdEventMessages\bin\Debug\NerdEventMessages.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdEventMessages\bin\Debug\NerdEventMessages.pdb
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdEventMessages\bin\Debug\NServiceBus.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdEventMessages\obj\Debug\ResolveAssemblyReference.cache
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdEventMessages\obj\Debug\NerdEventMessages.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\NerdEventMessages\obj\Debug\NerdEventMessages.pdb

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+				   assembly="NerdDinnerDomain"
+				   namespace="NerdDinnerDomain">
+  <class name="User"
+		   table="useraccount" >
+    <id name="Id">
+      <generator class="identity"/>
+    </id>
+    <property name="Forname" />
+    <property name="Surname"  />
+    <property name="Joined"  />
+
+
+    <!--    
+    <set name="Dinners" lazy="true" table="Report_Dinnerusers">
+      <key column="User_Id" />
+      <many-to-many class="Report_Dinner" column="Dinner_Id"/>
+    </set>
+-->
+
+  </class>
+
+    <class name="Dinner"
+         table="Dinner" >
+      <id name="Id">
+        <generator class="identity"/>
+      </id>
+      <property name="Date" />
+      <property name="Location" />
+      <property name="Description"  />
+      <property name="Organizer_User_id" column="organiser_user_id"  />
+
+      <set name="Participants" table="dinneruser">
+        <key column="Dinner_Id" not-null="true" />
+        <many-to-many  class="User" column="User_Id" />
+      </set>
+    </class>
+
+
+
+  </hibernate-mapping>

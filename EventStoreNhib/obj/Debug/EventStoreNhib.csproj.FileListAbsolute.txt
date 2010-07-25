@@ -1,0 +1,14 @@
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\EventStoreNhib\obj\Debug\ResolveAssemblyReference.cache
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\EventStoreNhib\bin\Debug\EventStoreNhib.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\EventStoreNhib\bin\Debug\EventStoreNhib.pdb
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\EventStoreNhib\bin\Debug\EventStoreInfrastructure.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\EventStoreNhib\bin\Debug\NHibernate.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\EventStoreNhib\bin\Debug\NHibernate.Linq.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\EventStoreNhib\bin\Debug\DomainEventsInfrastructure.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\EventStoreNhib\bin\Debug\Iesi.Collections.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\EventStoreNhib\bin\Debug\Antlr3.Runtime.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\EventStoreNhib\bin\Debug\log4net.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\EventStoreNhib\bin\Debug\EventStoreInfrastructure.pdb
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\EventStoreNhib\bin\Debug\DomainEventsInfrastructure.pdb
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\EventStoreNhib\obj\Debug\EventStoreNhib.dll
+C:\code\Enterprise\NerdDinnerCQRSEventSourcing\EventStoreNhib\obj\Debug\EventStoreNhib.pdb

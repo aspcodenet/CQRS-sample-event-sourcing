@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+				   assembly="EventStoreNhib"
+				   namespace="EventStoreNhib">
+  <class name="EventStoreItem"
+		   table="eventstore" >
+    <id name="Id">
+      <generator class="identity"/>
+    </id>
+    <property name="objectid" />
+    <property name="typ" />
+    <property name="version"  />
+    <property name="created"  />
+    <property name="serdata"  />
+    <property name="classtype"  />
+    <property name="artype"  />
+  </class>
+
+
+  <sql-query name="insert">
+    <![CDATA[
+    insert into eventstore(objectid,typ,version,created,serdata) select :objectid,:typ,:version,:created,:serdata
+    ]]>
+  </sql-query>
+
+
+  <sql-query name="qLatestSnapShot">
+    <return alias="p" class="EventStoreItem" />
+    <![CDATA[
+    select top 1 * from eventstore where objectid=:objectid and typ = 1 order by id desc 
+    ]]>
+  </sql-query>
+
+  <sql-query name="qHistoryEvents">
+    <return alias="p" class="EventStoreItem" />
+    <![CDATA[
+    select * from eventstore where objectid=:objectid and id > :latestsnapshotid and typ = 0 order by id
+    ]]>
+  </sql-query>
+
+
+</hibernate-mapping>

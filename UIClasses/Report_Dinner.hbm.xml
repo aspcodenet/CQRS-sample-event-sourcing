@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+				   assembly="UIClasses"
+				   namespace="UIClasses">
+  <class name="Report_Dinner"
+		   table="Report_Dinner" >
+    <id name="Dinner_Id">
+    </id>
+    <property name="Date" />
+    <property name="Location" />
+    <property name="Description"  />
+    <property name="Organizer_User_id"  />
+    <property name="Organizer_Fullname"  />
+
+    <set name="UsersComing" table="Report_Dinnerusers">
+      <key column="Dinner_Id" />
+      <many-to-many  class="Report_User" column="User_Id" />
+    </set>
+  </class>
+
+</hibernate-mapping>
