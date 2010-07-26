@@ -227,8 +227,13 @@ namespace GUI
         private void button4_Click(object sender, EventArgs e)
         {
             //Create a new dinner...
-
-            MessageBox.Show("Not implemented");
+            FormDinner oForm = new FormDinner();
+            if (oForm.ShowDialog(this) == DialogResult.OK)
+            {
+                Guid id = Communications.CommandBus.DinnerCreate(oForm.dtShipDate.Value.AddHours(Convert.ToInt32(oForm.txtHour.Text)).AddMinutes(Convert.ToInt32(oForm.txtMinute.Text)),
+                    oForm.txtForname.Text, oForm.textBox1.Text, user.User_Id).ARId;
+                MessageBox.Show(id.ToString());
+            }
 
         }
 
@@ -240,8 +245,6 @@ namespace GUI
             {
                 Guid id =  Communications.CommandBus.UserCreate(oForm.textBox1.Text, oForm.textBox2.Text).ARId;
                 MessageBox.Show(id.ToString());
-                //Testa med att uppdatera direkt
-                Communications.CommandBus.UserChangeName(id, "hello", "there");
             }
         }
 

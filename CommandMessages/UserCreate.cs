@@ -9,11 +9,11 @@ namespace NerdCommandMessages
     [Serializable]
     public class UserCreate : IMessage 
     {
-        public UserCreate(string sForname, string sSurname, CommandInfrastructure.MessageLogInfo oorginator)
+        public UserCreate(Guid userid,string sForname, string sSurname, CommandInfrastructure.MessageLogInfo oorginator)
         {
             Forname = sForname;
             Surname = sSurname;
-            UserId = Guid.NewGuid();
+            UserId = userid;
             CommandId = Guid.NewGuid();
             orginator = oorginator;
         }

@@ -11,6 +11,7 @@
     <property name="proxyfactory.factory_class">NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle</property>
     <mapping  assembly="ReportUpdaterServer" resource="ReportUpdaterServer.Classes.ReportParameter.hbm.xml" />
     <mapping  assembly="ReportUpdaterServer" resource="ReportUpdaterServer.Classes.ReportUser.hbm.xml" />
+    <mapping  assembly="ReportUpdaterServer" resource="ReportUpdaterServer.Classes.ReportDinner.hbm.xml" />
   </session-factory>
 </hibernate-configuration>
 

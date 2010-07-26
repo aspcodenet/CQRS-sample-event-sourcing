@@ -73,6 +73,7 @@
     <Compile Include="Classes\EventStore\EventStoreItem.cs" />
     <Compile Include="Classes\ReportParameter.cs" />
     <Compile Include="Classes\ReportUser.cs" />
+    <Compile Include="Classes\ReportDinner.cs" />
     <Compile Include="CommandProcessed.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="MessageEndpoint.cs" />
@@ -86,6 +87,7 @@
     <EmbeddedResource Include="Classes\EventStore\EventStoreItem.hbm.xml" />
     <EmbeddedResource Include="Classes\ReportParameter.hbm.xml" />
     <EmbeddedResource Include="Classes\ReportUser.hbm.xml" />
+    <EmbeddedResource Include="Classes\ReportDinner.hbm.xml" />
     <Content Include="ClassMappings.xml" />
     <Content Include="hibernate-eventstore.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

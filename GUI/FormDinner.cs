@@ -27,5 +27,10 @@ namespace GUI
             DialogResult = DialogResult.Cancel;
             Close();
         }
+
+        private void FormDinner_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

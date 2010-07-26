@@ -96,6 +96,31 @@ namespace ReportUpdaterServer
                 rep.Update(user);
                 return;
             }
+            NerdDinnerDomainEvents.DinnerCreatedEvent evDinnerCreated = ev as NerdDinnerDomainEvents.DinnerCreatedEvent;
+            if (evDinnerCreated != null)
+            {
+                //Create the user...
+                Systementor.Database.Repositories.IRepository<Classes.ReportDinner> repDinner = repList.CreateOrGetRepository<Classes.ReportDinner>();
+                Systementor.Database.Repositories.IRepository<Classes.ReportUser> repUser = repList.CreateOrGetRepository<Classes.ReportUser>();
+                Classes.ReportDinner oDinner = new Classes.ReportDinner();
+                //Classes.ReportUser user = rep.Get(p => p.User_Id == entid);
+
+                oDinner.Dinner_Id = entid;
+                oDinner.Location = evDinnerCreated.Location;
+                oDinner.Description = evDinnerCreated.Description;
+                oDinner.Date = evDinnerCreated.Date;
+                oDinner.Organizer_User_id = evDinnerCreated.Organizer_User_id;
+                //Get user full name
+                Classes.ReportUser user = repUser.GetById(oDinner.Organizer_User_id);
+                oDinner.Organizer_Fullname = user.Forname + " " + user.Surname;
+
+                //Add itself as coming
+                oDinner.UsersComing.Add(user);
+
+                repDinner.Insert(oDinner);
+                return;
+
+            }
 
 
         }

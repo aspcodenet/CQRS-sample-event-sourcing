@@ -51,11 +51,17 @@ namespace GUI.Communications
 
         public static ReturnValue UserCreate(string sForname, string sLastName)
         {
-            NerdCommandMessages.UserCreate message = new NerdCommandMessages.UserCreate(sForname, sLastName, CommandInfrastructure.MessageLogInfo.CreateNew(CurrentUser));
+            NerdCommandMessages.UserCreate message = new NerdCommandMessages.UserCreate(Guid.NewGuid(),sForname, sLastName, CommandInfrastructure.MessageLogInfo.CreateNew(CurrentUser));
             Bus.Send(message);
             return new ReturnValue(message.CommandId, message.UserId);
         }
 
+        public static ReturnValue DinnerCreate(DateTime dtWhen, string location, string description, Guid organizerUserId)
+        {
+            NerdCommandMessages.DinnerCreate message = new NerdCommandMessages.DinnerCreate(Guid.NewGuid(), dtWhen, location, description, organizerUserId, CommandInfrastructure.MessageLogInfo.CreateNew(CurrentUser));
+            Bus.Send(message);
+            return new ReturnValue(message.CommandId, message.DinnerId);
+        }
 
 
 

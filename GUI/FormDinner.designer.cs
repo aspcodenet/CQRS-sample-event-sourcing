@@ -236,6 +236,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FormDinner";
             this.Text = "FormDinner";
+            this.Load += new System.EventHandler(this.FormDinner_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -244,15 +245,15 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DateTimePicker dtShipDate;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DomainUpDown txtHour;
-        private System.Windows.Forms.DomainUpDown txtMinute;
-        private System.Windows.Forms.TextBox txtForname;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
+        public System.Windows.Forms.DateTimePicker dtShipDate;
+        public System.Windows.Forms.DomainUpDown txtHour;
+        public System.Windows.Forms.DomainUpDown txtMinute;
+        public System.Windows.Forms.TextBox txtForname;
+        public System.Windows.Forms.TextBox textBox1;
     }
 }
