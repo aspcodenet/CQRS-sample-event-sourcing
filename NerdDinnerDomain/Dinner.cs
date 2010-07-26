@@ -36,12 +36,40 @@ namespace NerdDinnerDomain
         public Dinner()
         {
             RegisterStorageHandler();
-            Participants = new HashSet<User>();
+            Participants = new List<Guid>();
         }
 
         private void RegisterStorageHandler()
         {
             RegisterStorageEventHandler<NerdDinnerDomainEvents.DinnerCreatedEvent>(onDinnerCreatedEvent);
+            RegisterStorageEventHandler<NerdDinnerDomainEvents.DinnerModifiedTimeEvent>(onDinnerModifiedTimeEvent);
+            RegisterStorageEventHandler<NerdDinnerDomainEvents.DinnerModifiedLocationEvent>(onDinnerModifiedLocationEvent);
+            RegisterStorageEventHandler<NerdDinnerDomainEvents.DinnerModifiedDescriptionEvent>(onDinnerModifiedDescriptionEvent);
+            RegisterStorageEventHandler<NerdDinnerDomainEvents.DinnerAddedParticipantEvent>(onDinnerAddedParticipantEvent);
+            RegisterStorageEventHandler<NerdDinnerDomainEvents.DinnerRemovedParticipantEvent>(onDinnerRemovedParticipantEvent);
+            
+            
+            
+        }
+        private void onDinnerAddedParticipantEvent(NerdDinnerDomainEvents.DinnerAddedParticipantEvent ev)
+        {
+            if (!Participants.Contains(ev.User_id))
+                Participants.Add(ev.User_id);
+        }
+        private void onDinnerRemovedParticipantEvent(NerdDinnerDomainEvents.DinnerRemovedParticipantEvent ev)
+        {
+            if (Participants.Contains(ev.User_id))
+                Participants.Remove(ev.User_id);
+        }
+
+        private void onDinnerModifiedDescriptionEvent(NerdDinnerDomainEvents.DinnerModifiedDescriptionEvent ev)
+        {
+            Description = ev.Description;
+        }
+
+        private void onDinnerModifiedLocationEvent(NerdDinnerDomainEvents.DinnerModifiedLocationEvent ev)
+        {
+            Location = ev.Location;
         }
         private void onDinnerCreatedEvent(NerdDinnerDomainEvents.DinnerCreatedEvent oUserCreatedEvent)
         {
@@ -50,6 +78,11 @@ namespace NerdDinnerDomain
             Location = oUserCreatedEvent.Location;
             Description = oUserCreatedEvent.Description;
             Organizer_User_id = oUserCreatedEvent.Organizer_User_id;
+        }
+
+        private void onDinnerModifiedTimeEvent(NerdDinnerDomainEvents.DinnerModifiedTimeEvent oDinnerModifiedTimeEvent)
+        {
+            Date = oDinnerModifiedTimeEvent.Date;
         }
 
 
@@ -62,6 +95,7 @@ namespace NerdDinnerDomain
             public string Description { get; set; }
             public DateTime Date { get; set; }
             public Guid Organizer_User_Id { get; set; }
+            public List<Guid> Participants { get; set; }
         }
         protected override void Snapshot_LoadFrom(object o)
         {
@@ -71,6 +105,7 @@ namespace NerdDinnerDomain
             Description = ser.Description;
             Date = ser.Date;
             Organizer_User_id = ser.Organizer_User_Id;
+            Participants = ser.Participants;
         }
         protected override object Snapshot_Create()
         {
@@ -80,18 +115,30 @@ namespace NerdDinnerDomain
             ser.Description = Description;
             ser.Date = Date;
             ser.Organizer_User_Id = Organizer_User_id;
+            ser.Participants = Participants;
             return ser;
         }
 
 
 
 
-        public virtual void ChangeWhereabouts(DateTime dtDate, string Location)
+        public virtual void AddParticipant(Guid userid)
         {
-            
-        }
-        public virtual void AddParticipant(User oUser)
-        {
+            //Behaviour ???
+            //TODO
+            //Already exists = error!!!
+            //Is the user also organizer = error
+
+            //Returns in an event
+            NerdDinnerDomainEvents.DinnerAddedParticipantEvent oEvent = new NerdDinnerDomainEvents.DinnerAddedParticipantEvent(Id, userid);
+
+            //Apply
+            ApplyStorageEvent<NerdDinnerDomainEvents.DinnerAddedParticipantEvent>(oEvent);
+
+            //Publish event
+            Events.DomainEvents.Instance.Dispatcher.Publish<NerdDinnerDomainEvents.DinnerAddedParticipantEvent>(oEvent);
+
+
 /*            if (!Participants.Contains(oUser))
             {
                 Participants.Add(oUser);
@@ -100,12 +147,67 @@ namespace NerdDinnerDomain
             //Raise event
   */          
         }
-        public virtual void RemoveParticipant(User oUser)
+        public virtual void RemoveParticipant(Guid userid)
         {
-            if (Participants.Contains(oUser))
-                Participants.Remove(oUser);
-        }
-        public virtual ICollection<User> Participants { get; set; }
+            //Behaviour ???
+            //TODO
+            //Already exists = error!!!
+            //Is the user also organizer = error
 
+            //Returns in an event
+            NerdDinnerDomainEvents.DinnerRemovedParticipantEvent oEvent = new NerdDinnerDomainEvents.DinnerRemovedParticipantEvent(Id, userid);
+
+            //Apply
+            ApplyStorageEvent<NerdDinnerDomainEvents.DinnerRemovedParticipantEvent>(oEvent);
+
+            //Publish event
+            Events.DomainEvents.Instance.Dispatcher.Publish<NerdDinnerDomainEvents.DinnerRemovedParticipantEvent>(oEvent);
+        }
+        public virtual List<Guid> Participants { get; set; }
+
+
+        public void SetTime(DateTime dateTime)
+        {
+
+            //Behaviour ???
+
+            //Returns in an event
+            NerdDinnerDomainEvents.DinnerModifiedTimeEvent oEvent = new NerdDinnerDomainEvents.DinnerModifiedTimeEvent(Id, dateTime);
+
+            //Apply
+            ApplyStorageEvent<NerdDinnerDomainEvents.DinnerModifiedTimeEvent>(oEvent);
+
+            //Publish event
+            Events.DomainEvents.Instance.Dispatcher.Publish<NerdDinnerDomainEvents.DinnerModifiedTimeEvent>(oEvent);
+            
+        }
+
+        public void SetLocation(string sLocation)
+        {
+            //Behaviour ???
+
+            //Returns in an event
+            NerdDinnerDomainEvents.DinnerModifiedLocationEvent oEvent = new NerdDinnerDomainEvents.DinnerModifiedLocationEvent(Id, sLocation);
+
+            //Apply
+            ApplyStorageEvent<NerdDinnerDomainEvents.DinnerModifiedLocationEvent>(oEvent);
+
+            //Publish event
+            Events.DomainEvents.Instance.Dispatcher.Publish<NerdDinnerDomainEvents.DinnerModifiedLocationEvent>(oEvent);
+        }
+
+        public void SetDescription(string sDescription)
+        {
+            //Behaviour ???
+
+            //Returns in an event
+            NerdDinnerDomainEvents.DinnerModifiedDescriptionEvent oEvent = new NerdDinnerDomainEvents.DinnerModifiedDescriptionEvent(Id, sDescription);
+
+            //Apply
+            ApplyStorageEvent<NerdDinnerDomainEvents.DinnerModifiedDescriptionEvent>(oEvent);
+
+            //Publish event
+            Events.DomainEvents.Instance.Dispatcher.Publish<NerdDinnerDomainEvents.DinnerModifiedDescriptionEvent>(oEvent);
+        }
     }
 }

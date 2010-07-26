@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.dtShipDate = new System.Windows.Forms.DateTimePicker();
+            this.dtDate = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.txtHour = new System.Windows.Forms.DomainUpDown();
             this.txtMinute = new System.Windows.Forms.DomainUpDown();
-            this.txtForname = new System.Windows.Forms.TextBox();
+            this.txtLocation = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtDescription = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -50,14 +50,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Date";
             // 
-            // dtShipDate
+            // dtDate
             // 
-            this.dtShipDate.CustomFormat = "yyyy-MM-dd";
-            this.dtShipDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtShipDate.Location = new System.Drawing.Point(69, 19);
-            this.dtShipDate.Name = "dtShipDate";
-            this.dtShipDate.Size = new System.Drawing.Size(100, 20);
-            this.dtShipDate.TabIndex = 5;
+            this.dtDate.CustomFormat = "yyyy-MM-dd";
+            this.dtDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtDate.Location = new System.Drawing.Point(69, 19);
+            this.dtDate.Name = "dtDate";
+            this.dtDate.Size = new System.Drawing.Size(100, 20);
+            this.dtDate.TabIndex = 5;
             // 
             // label2
             // 
@@ -166,12 +166,12 @@
             this.txtMinute.Size = new System.Drawing.Size(76, 20);
             this.txtMinute.TabIndex = 8;
             // 
-            // txtForname
+            // txtLocation
             // 
-            this.txtForname.Location = new System.Drawing.Point(69, 59);
-            this.txtForname.Name = "txtForname";
-            this.txtForname.Size = new System.Drawing.Size(383, 20);
-            this.txtForname.TabIndex = 10;
+            this.txtLocation.Location = new System.Drawing.Point(69, 59);
+            this.txtLocation.Name = "txtLocation";
+            this.txtLocation.Size = new System.Drawing.Size(383, 20);
+            this.txtLocation.TabIndex = 10;
             // 
             // label3
             // 
@@ -182,12 +182,12 @@
             this.label3.TabIndex = 9;
             this.label3.Text = "Where";
             // 
-            // textBox1
+            // txtDescription
             // 
-            this.textBox1.Location = new System.Drawing.Point(69, 95);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(383, 20);
-            this.textBox1.TabIndex = 12;
+            this.txtDescription.Location = new System.Drawing.Point(69, 95);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(383, 20);
+            this.txtDescription.TabIndex = 12;
             // 
             // label4
             // 
@@ -225,14 +225,14 @@
             this.ClientSize = new System.Drawing.Size(506, 217);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtForname);
+            this.Controls.Add(this.txtLocation);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtMinute);
             this.Controls.Add(this.txtHour);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dtShipDate);
+            this.Controls.Add(this.dtDate);
             this.Controls.Add(this.label1);
             this.Name = "FormDinner";
             this.Text = "FormDinner";
@@ -250,10 +250,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
-        public System.Windows.Forms.DateTimePicker dtShipDate;
+        public System.Windows.Forms.DateTimePicker dtDate;
         public System.Windows.Forms.DomainUpDown txtHour;
         public System.Windows.Forms.DomainUpDown txtMinute;
-        public System.Windows.Forms.TextBox txtForname;
-        public System.Windows.Forms.TextBox textBox1;
+        public System.Windows.Forms.TextBox txtLocation;
+        public System.Windows.Forms.TextBox txtDescription;
     }
 }

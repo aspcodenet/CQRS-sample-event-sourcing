@@ -9,7 +9,7 @@ namespace DomainEventsInfrastructure
     {
         private readonly Dictionary<Type, List<Action<DomainEventsInfrastructure.DomainEventBase>>>  _registeredEventsAndTypes = new Dictionary<Type,List<Action<DomainEventBase>>>();
 
-        private readonly List<Action<DomainEventsInfrastructure.DomainEventBase>> _registeredEvents = new List<Action<DomainEventBase>>();
+        //private readonly List<Action<DomainEventsInfrastructure.DomainEventBase>> _registeredEvents = new List<Action<DomainEventBase>>();
 
 
         public void RegisterEventHandler<T>(Action<T> callback) where T : DomainEventsInfrastructure.DomainEventBase
@@ -33,7 +33,8 @@ namespace DomainEventsInfrastructure
         {
             List<Action<DomainEventsInfrastructure.DomainEventBase>> list;
 
-            if (_registeredEventsAndTypes.TryGetValue(typeof(TEvent), out list))
+            //if (_registeredEventsAndTypes.TryGetValue(typeof(TEvent), out list))
+            if (_registeredEventsAndTypes.TryGetValue(domainEvent.GetType(), out list))
             {
                 foreach (Action<TEvent> action in list)
                     action.Invoke(domainEvent);
@@ -49,7 +50,8 @@ namespace DomainEventsInfrastructure
         public void PublishAsynch<TEvent>(TEvent domainEvent) where TEvent : DomainEventsInfrastructure.DomainEventBase
         {
             List<Action<DomainEventsInfrastructure.DomainEventBase>> list;
-            if (_registeredEventsAndTypes.TryGetValue(typeof(TEvent), out list))
+            //if (_registeredEventsAndTypes.TryGetValue(typeof(TEvent), out list))
+            if (_registeredEventsAndTypes.TryGetValue(domainEvent.GetType(), out list))
             {
                 foreach (Action<TEvent> action in list)
                     System.Threading.Tasks.Parallel.Invoke(() => action(domainEvent));

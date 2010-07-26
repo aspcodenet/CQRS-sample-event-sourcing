@@ -65,6 +65,27 @@ namespace GUI.Communications
 
 
 
+
+        public static ReturnValue DinnerModifyTime(Guid dinnerid,DateTime dtWhen)
+        {
+            NerdCommandMessages.DinnerModifyTime message = new NerdCommandMessages.DinnerModifyTime(dinnerid, dtWhen,  CommandInfrastructure.MessageLogInfo.CreateNew(CurrentUser));
+            Bus.Send(message);
+            return new ReturnValue(message.CommandId, message.DinnerId);
+        }
+        public static ReturnValue DinnerModifyLocation(Guid dinnerid, string sLocation)
+        {
+            NerdCommandMessages.DinnerModifyLocation message = new NerdCommandMessages.DinnerModifyLocation(dinnerid, sLocation, CommandInfrastructure.MessageLogInfo.CreateNew(CurrentUser));
+            Bus.Send(message);
+            return new ReturnValue(message.CommandId, message.DinnerId);
+        }
+        public static ReturnValue DinnerModifyDescription(Guid dinnerid, string sDescription)
+        {
+            NerdCommandMessages.DinnerModifyDescription message = new NerdCommandMessages.DinnerModifyDescription(dinnerid, sDescription, CommandInfrastructure.MessageLogInfo.CreateNew(CurrentUser));
+            Bus.Send(message);
+            return new ReturnValue(message.CommandId, message.DinnerId);
+        }
+
+
         public static ReturnValue UserChangeName(Guid UserId, string Forname, string LastName)
         {
             NerdCommandMessages.UserChangeName message = new NerdCommandMessages.UserChangeName(UserId, Forname, LastName, CommandInfrastructure.MessageLogInfo.CreateNew(CurrentUser));
@@ -78,12 +99,19 @@ namespace GUI.Communications
         {
         }
 
-        internal static Guid UserOptInForDinner(int userid, int dinnerid)
+        internal static ReturnValue UserOptOutForDinner(Guid userid, Guid dinnerid)
         {
-            Guid g = Guid.NewGuid(); ;
-            NerdCommandMessages.UserOptInForDinner mess = new NerdCommandMessages.UserOptInForDinner { DinnerId = dinnerid, MessageGuid = g, UserId = userid };
-            Bus.Send(mess);
-            return g;
+            NerdCommandMessages.DinnerRemoveUser message = new NerdCommandMessages.DinnerRemoveUser(userid, dinnerid, CommandInfrastructure.MessageLogInfo.CreateNew(CurrentUser));
+            Bus.Send(message);
+            return new ReturnValue(message.CommandId, message.UserId);
+        }
+
+
+        internal static ReturnValue UserOptInForDinner(Guid userid, Guid dinnerid)
+        {
+            NerdCommandMessages.DinnerAddUser message = new NerdCommandMessages.DinnerAddUser(userid,dinnerid, CommandInfrastructure.MessageLogInfo.CreateNew(CurrentUser));
+            Bus.Send(message);
+            return new ReturnValue(message.CommandId, message.UserId);
         }
     }
 }

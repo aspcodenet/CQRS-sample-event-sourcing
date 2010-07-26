@@ -40,7 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DinnerAddedParticipantEvent.cs" />
     <Compile Include="DinnerCreatedEvent.cs" />
+    <Compile Include="DinnerModifiedDescriptionEvent.cs" />
+    <Compile Include="DinnerModifiedLocationEvent.cs" />
+    <Compile Include="DinnerModifiedTimeEvent.cs" />
+    <Compile Include="DinnerRemovedParticipantEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserChangedNameEvent.cs" />
     <Compile Include="UserCreatedEvent.cs" />

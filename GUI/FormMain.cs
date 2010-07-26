@@ -72,9 +72,9 @@ namespace GUI
             {
                 user = oForm.cbUsers.SelectedItem as UIClasses.Report_User;
                 UserForm();
-                //IAmGoingToForm();
-                //IAmHostingForm();
-                //SignupForDinnerForm();
+                IAmGoingToForm();
+                IAmHostingForm();
+                SignupForDinnerForm();
             }
         }
         void SignupForDinnerForm()
@@ -120,6 +120,7 @@ namespace GUI
                     i.SubItems.Add(dinner.Location);
                     i.SubItems.Add(dinner.Organizer_Fullname);
                     i.SubItems.Add(dinner.UsersComing.Count.ToString());
+                    i.Tag = dinner;
                 }
             }
             lvGoingTo.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -140,6 +141,7 @@ namespace GUI
                     i.SubItems.Add( dinner.Location );
                     i.SubItems.Add(dinner.Organizer_Fullname);
                     i.SubItems.Add(dinner.UsersComing.Count.ToString());
+                    i.Tag = dinner;
                 }
             }
             lvIAmHosting.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -156,7 +158,31 @@ namespace GUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Not implemented");
+            if (user == null)
+                return;
+            if (lvGoingTo.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Select a dinner first");
+                return;
+            }
+            UIClasses.Report_Dinner dinner = lvGoingTo.SelectedItems[0].Tag as UIClasses.Report_Dinner;
+
+            //What type of validation can we do at the UI
+            //Of course check if user already is signed up
+            //How - of course the best we can do is query our report model
+            using (Systementor.Database.Repositories.IUnitOfWork uow = DB.Context.DataContext.CreateUnitOfWork(false))
+            {
+                Systementor.Database.Repositories.IRepository<UIClasses.Report_Dinner> rep = uow.CreateRepository<UIClasses.Report_Dinner>();
+                int nCnt = rep.Count(r => r.UsersComing.Any(us => us.User_Id == user.User_Id));
+                if (nCnt == 0)
+                {
+                    MessageBox.Show("You dont seem to have opted in for that dinner");
+                    return;
+                }
+            }
+            Communications.CommandBus.UserOptOutForDinner(user.User_Id, dinner.Dinner_Id);
+            //System.Guid uid = Communications.CommandBus.UserOptInForDinner(user.User_Id, dinner.Dinner_Id);
+            MessageBox.Show("If all went ok you will get an email sent to you in a few minutes time or so...");
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -183,6 +209,7 @@ namespace GUI
                     return;
                 }
             }
+            Communications.CommandBus.UserOptInForDinner(user.User_Id, dinner.Dinner_Id);
             //System.Guid uid = Communications.CommandBus.UserOptInForDinner(user.User_Id, dinner.Dinner_Id);
             MessageBox.Show("If all went ok you will get an email sent to you in a few minutes time or so...");
             
@@ -220,7 +247,35 @@ namespace GUI
 
         private void button3_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Not implemented");
+            foreach (ListViewItem oItem in lvIAmHosting.SelectedItems)
+            {
+                UIClasses.Report_Dinner oDinner = oItem.Tag as UIClasses.Report_Dinner;
+                FormDinner oForm = new FormDinner();
+                oForm.txtDescription.Text = oDinner.Description;
+                oForm.txtLocation.Text = oDinner.Location;
+                oForm.dtDate.Value = oDinner.Date.Date;
+                oForm.txtHour.Text = oDinner.Date.Hour.ToString();
+                oForm.txtMinute.Text = oDinner.Date.Minute.ToString();
+                if (oForm.ShowDialog(this) == DialogResult.OK)
+                {
+                    List<NServiceBus.IMessage> oList = new List<NServiceBus.IMessage>();
+                    //What has changed?
+                    DateTime dtNew = oForm.dtDate.Value.AddHours(Convert.ToInt32(oForm.txtHour.Text)).AddMinutes(Convert.ToInt32(oForm.txtMinute.Text)).AddSeconds(-oForm.dtDate.Value.Second);
+                    if (dtNew != oDinner.Date)
+                        oList.Add(new NerdCommandMessages.DinnerModifyTime(oDinner.Dinner_Id, dtNew, CommandInfrastructure.MessageLogInfo.CreateNew(Communications.CommandBus.CurrentUser)));
+                    if ( oForm.txtLocation.Text != oDinner.Location )
+                        oList.Add(new NerdCommandMessages.DinnerModifyLocation(oDinner.Dinner_Id, oForm.txtLocation.Text, CommandInfrastructure.MessageLogInfo.CreateNew(Communications.CommandBus.CurrentUser)));
+                    if (oForm.txtDescription.Text != oDinner.Description)
+                        oList.Add(new NerdCommandMessages.DinnerModifyDescription(oDinner.Dinner_Id, oForm.txtDescription.Text, CommandInfrastructure.MessageLogInfo.CreateNew(Communications.CommandBus.CurrentUser)));
+
+                    Communications.CommandBus.Bus.Send(oList.ToArray());
+
+                }
+                
+
+
+
+            }
 
         }
 
@@ -230,8 +285,8 @@ namespace GUI
             FormDinner oForm = new FormDinner();
             if (oForm.ShowDialog(this) == DialogResult.OK)
             {
-                Guid id = Communications.CommandBus.DinnerCreate(oForm.dtShipDate.Value.AddHours(Convert.ToInt32(oForm.txtHour.Text)).AddMinutes(Convert.ToInt32(oForm.txtMinute.Text)),
-                    oForm.txtForname.Text, oForm.textBox1.Text, user.User_Id).ARId;
+                Guid id = Communications.CommandBus.DinnerCreate(oForm.dtDate.Value.AddHours(Convert.ToInt32(oForm.txtHour.Text)).AddMinutes(Convert.ToInt32(oForm.txtMinute.Text)).AddSeconds(-oForm.dtDate.Value.Second),
+                    oForm.txtLocation.Text, oForm.txtDescription.Text, user.User_Id).ARId;
                 MessageBox.Show(id.ToString());
             }
 

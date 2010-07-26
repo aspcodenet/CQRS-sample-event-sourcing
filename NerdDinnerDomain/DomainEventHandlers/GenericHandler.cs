@@ -32,7 +32,7 @@ namespace NerdDinnerDomain.DomainEventHandlers
             //When a new user has been created THIS should happen
             string s1 = "USER " + ev.EntityId.ToString() + " changed name to " + ev.Forname + " " + ev.Surname;
 
-            using (TextWriter w = System.IO.File.AppendText("UserCreatedEvent-domainevents.txt"))
+            using (TextWriter w = System.IO.File.AppendText("UserChangedNameEvent-domainevents.txt"))
             {
                 w.WriteLine(DateTime.Now.ToString() + " " + s1);
             }
